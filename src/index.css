@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.room {
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 5px 10px 25px #000000;
+}

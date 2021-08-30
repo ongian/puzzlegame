@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ImageMapper from 'react-image-mapper';
 import RoomOneImg from '../../../image/room_1.jpg';
+import PuzzleContext from '../../../PuzzleContext/PuzzleContext';
 const RoomOne = (props) => {
     //const [area, setArea] = useState({ hoveredArea: null, msg: null, moveMsg: null })
     // const mapClick = (area) => {
@@ -11,8 +12,11 @@ const RoomOne = (props) => {
     //         console.log('Book')
     //     }
     // }
+    const puzzleCtx = useContext(PuzzleContext);
     const setRoom = (room) => {
-        props.getRoom(room.name)
+        //localStorage.setItem('Room', room.name);
+        puzzleCtx.setCurrentRoom(room.name);
+        console.log(room)
     }
     const MAP = {
         name: "Room One",

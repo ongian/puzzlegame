@@ -1,46 +1,55 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 
 const PuzzleContext = React.createContext({
     passedRoom: ['Room One'],
     clues: [],
     currentRoom: 'Room One',
-    setRoom: () => {},
-    setClues: () => {}
+    guessed: () => {}
 })
 
 const PuzzleReducer = (state, action) => {
-    if(action.type === 'ROOM'){
-
-    }
-    if(action.type === 'Clue'){
-        
+    switch (action.type) {
+        case 'Room One':
+            return {...state, currentRoom: action.type};
+        case 'Room Two':
+            return {...state, currentRoom: action.type};
+        case 'Room Three':
+            return {...state, currentRoom: action.type}
+        default:
+            return state;
     }
 }
+const initialState = {
+    currentRoom: localStorage.getItem('Room'),
+    clues: localStorage.getItem('Clues')
+}
 export const PuzzleContextProvider = (props) => {
-    const [curRoom, setCurRoom] = useState(localStorage.getItem('Room'));
-    const [clueState, setClueState] = useState([]);
-    const [puzzleState, dispatchPuzzleFN] = useReducer(PuzzleReducer, {
-        currentRoom: localStorage.getItem('Room'),
-        clues: localStorage.getItem('Clues')
-    })
-    const setRoom = (roomname) => {
-        localStorage.setItem('Room', roomname);
-        setCurRoom(localStorage.getItem('Room'));
-    }
-    const setClues = (clue) => {
-        const clueArray = [];
-        if(clueArray.indexOf(clue) === -1){
-            clueArray.push(clue)
+    const [puzzleState, dispatchPuzzleFN] = useReducer(PuzzleReducer, initialState);
+    let {passedRoom, clues, currentRoom} = puzzleState;
+    const clicks = (clicked) => {
+        if(clicked === 'Room One' || clicked === 'Room Two' || clicked === 'Room Three'){
+            localStorage.setItem('Room', clicked);
+            currentRoom = localStorage.getItem('Room');
+        } else {
+            let clueArray = [];
+            let parsedClueLS = [];
+            if(JSON.parse(localStorage.getItem('Clues'))){
+                parsedClueLS = JSON.parse(localStorage.getItem('Clues'))
+            }
+            if(parsedClueLS.indexOf(clicked) === -1){
+                clueArray = [...parsedClueLS, clicked];
+                localStorage.setItem('Clues', JSON.stringify(clueArray))
+            }
+            console.log(JSON.parse(localStorage.getItem('Clues')))
+            
         }
-        localStorage.setItem('Clue', clueArray);
-        setClueState(clueArray);
+        dispatchPuzzleFN({type: clicked});
     }
     return <PuzzleContext.Provider value={{
-        currentRoom: curRoom,
-        clues: clueState,
-        passedRoom: ['Room One'],
-        setCurrentRoom: setRoom,
-        setClues: setClues
+        currentRoom: currentRoom,
+        clues: clues,
+        passedRoom: passedRoom,
+        guessed: clicks
     }}>{props.children}</PuzzleContext.Provider>
 }
 export default PuzzleContext;

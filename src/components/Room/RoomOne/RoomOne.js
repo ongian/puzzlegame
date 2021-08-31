@@ -3,20 +3,10 @@ import ImageMapper from 'react-image-mapper';
 import RoomOneImg from '../../../image/room_1.jpg';
 import PuzzleContext from '../../../PuzzleContext/PuzzleContext';
 const RoomOne = (props) => {
-    //const [area, setArea] = useState({ hoveredArea: null, msg: null, moveMsg: null })
-    // const mapClick = (area) => {
-    //     if(area.name === 'Room 2') {
-    //         console.log('Room 2')
-    //     }
-    //     if(area.name === 'Book'){
-    //         console.log('Book')
-    //     }
-    // }
     const puzzleCtx = useContext(PuzzleContext);
-    const setRoom = (room) => {
-        //localStorage.setItem('Room', room.name);
-        puzzleCtx.setCurrentRoom(room.name);
-        console.log(room)
+    const guessed = (room) => {
+        puzzleCtx.guessed(room.name);
+        //puzzleCtx.dispatchPuzzleFN({type: room.name})
     }
     const MAP = {
         name: "Room One",
@@ -27,20 +17,11 @@ const RoomOne = (props) => {
           { name: "Cabinet", coords: [168,598,171,585,173,570,180,561,186,554,192,554,196,558,199,565,199,573,199,581,199,589,199,597,186,599], shape: "poly", strokeColor: "#e4df3b" },
         ]
     };
-    
-    // const enterArea = (area) => {
-    //     setArea({ hoveredArea: area });
-    // };
-    
-    // const leaveArea = (area) => {
-    //     setArea({ hoveredArea: null });
-    // };
+
     
     return <div className="room">
         <ImageMapper src={RoomOneImg} map={MAP} width={900}
-    	onClick={setRoom}
-    	// onMouseEnter={area => enterArea(area)}
-    	// onMouseLeave={area => leaveArea(area)}
+    	onClick={guessed}
     />
     </div>
 }

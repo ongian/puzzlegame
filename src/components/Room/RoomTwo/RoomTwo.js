@@ -1,15 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ImageMapper from 'react-image-mapper';
 import RoomTwoImg from '../../../image/room_2.jpg';
+import PuzzleContext from '../../../PuzzleContext/PuzzleContext';
+
 const RoomTwo = (props) => {
-    //const [area, setArea] = useState({ hoveredArea: null, msg: null, moveMsg: null })
-    const mapClick = (area) => {
-        if(area.name === 'Room 2') {
-            console.log('Room 2')
-        }
-        if(area.name === 'Book'){
-            console.log('Book')
-        }
+    const puzzleCtx = useContext(PuzzleContext);
+    const guessed = (room) => {
+        puzzleCtx.guessed(room.name);
     }
     const MAP = {
         name: "Room Two",
@@ -19,19 +16,11 @@ const RoomTwo = (props) => {
         ]
     };
     
-    // const enterArea = (area) => {
-    //     setArea({ hoveredArea: area });
-    // };
-    
-    // const leaveArea = (area) => {
-    //     setArea({ hoveredArea: null });
-    // };
+
     
     return <div className="room">
         <ImageMapper src={RoomTwoImg} map={MAP} width={900}
-    	onClick={mapClick}
-    	// onMouseEnter={area => enterArea(area)}
-    	// onMouseLeave={area => leaveArea(area)}
+    	onClick={guessed}
     />
     </div>
 }

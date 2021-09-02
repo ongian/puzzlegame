@@ -44,3 +44,18 @@ Room 1 coordinates
     <area target="_self" alt="Cabinet" title="Cabinet" href="#cabinet" coords="151,572,210,480,216,599,162,603" shape="poly">
 </map>
 
+
+The Portal was somewhere in this castle
+
+To unlock the portal you must input the correct numbers
+
+The clues are
+
+Number of shields
+
+Number of portraits hanged on the wall on all rooms
+
+Number of curtains in all rooms
+
+
+

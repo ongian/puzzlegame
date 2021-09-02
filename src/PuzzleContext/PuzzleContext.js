@@ -8,15 +8,16 @@ const PuzzleContext = React.createContext({
     showModal: false,
     guessed: () => {},
     hideModal: () => {},
+    messageClue: ''
     
 })
 
 const PuzzleReducer = (state, action) => {
     switch (action.type) {
         case 'Room One':
-            return {...state, currentRoom: action.type};
+            return {...state, currentRoom: action.type}
         case 'Room Two':
-            return {...state, currentRoom: action.type};
+            return {...state, currentRoom: action.type}
         case 'Room Three':
             return {...state, currentRoom: action.type}
         case 'Show Modal':
@@ -45,14 +46,16 @@ export const PuzzleContextProvider = (props) => {
             let parsedClueLS = [];
             if(JSON.parse(localStorage.getItem('Clues'))){
                 parsedClueLS = JSON.parse(localStorage.getItem('Clues'));
-                dispatchPuzzleFN({type: 'Current Clues', clue: clicked});
-                currentClues = clicked;
             }
-            if(parsedClueLS.indexOf(clicked) === -1){
+            if(parsedClueLS.indexOf(clicked) === -1 && clicked !== 'Cabinet'){
                 clueArray = [...parsedClueLS, clicked];
                 localStorage.setItem('Clues', JSON.stringify(clueArray));
                 dispatchPuzzleFN({type: 'Show Modal'});
-                showModal = true;
+                dispatchPuzzleFN({type: 'Current Clues', clue: clicked});
+            }
+            if(clicked === 'Cabinet'){
+                dispatchPuzzleFN({type: 'Show Modal'});
+                dispatchPuzzleFN({type: 'Current Clues', clue: clicked});
             }
             console.log(JSON.parse(localStorage.getItem('Clues')))
             if(clicked === 'Case'){
@@ -63,7 +66,6 @@ export const PuzzleContextProvider = (props) => {
     }
     const hideModalFN = () => {
         dispatchPuzzleFN({type: 'Hide Modal'});
-        showModal = false;
         console.log('Hide Modal')
     }
     return <PuzzleContext.Provider value={{

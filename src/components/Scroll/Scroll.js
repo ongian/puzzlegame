@@ -17,10 +17,9 @@ const ScrollContentModal = (props) => {
     </div>
 }
 const Scroll = (props) => {
-    const pzCtx = useContext(PuzzleContext)
     return <React.Fragment>
         {ReactDOM.createPortal(<ModalBG />, document.getElementById('modal-background'))}
-        {ReactDOM.createPortal(<ScrollContentModal clue={pzCtx.currentClues}/>, document.getElementById('modal-content'))}
+        {ReactDOM.createPortal(<ScrollContentModal />, document.getElementById('modal-content'))}
     </React.Fragment>;
 }
  

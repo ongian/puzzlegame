@@ -5,7 +5,6 @@ import PuzzleContext from '../../PuzzleContext/PuzzleContext';
 import Scroll from '../Scroll/Scroll';
 const Room = (props) => {
     const puzzleCtx = useContext(PuzzleContext);
-    console.log(puzzleCtx.currentClues)
     return <React.Fragment>
         {puzzleCtx.currentRoom === null || puzzleCtx.currentRoom === undefined ? <RoomOne/> : null}
         {puzzleCtx.currentRoom === 'Room One' ||  puzzleCtx.currentRoom === '' ? <RoomOne /> : null}

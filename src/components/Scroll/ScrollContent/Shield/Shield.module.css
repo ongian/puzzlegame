@@ -1,0 +1,15 @@
+.shield {
+    background: url(../../../../image/shield-back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 175px;
+    height: 230px;
+    text-align: center;
+    margin: 15px auto;
+}
+.shield span {
+    font-size: 45px;
+    padding-top: 64px;
+    display: block;
+    font-weight: bold;
+}

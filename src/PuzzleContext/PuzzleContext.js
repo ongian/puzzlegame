@@ -8,18 +8,19 @@ const PuzzleContext = React.createContext({
     showModal: false,
     guessed: () => {},
     hideModal: () => {},
-    messageClue: ''
+    messageClue: '',
+    changeRoom: () => {}
     
 })
 
 const PuzzleReducer = (state, action) => {
     switch (action.type) {
         case 'Room One':
-            return {...state, currentRoom: action.type}
+            return {...state, currentRoom: localStorage.getItem('Room')}
         case 'Room Two':
-            return {...state, currentRoom: action.type}
+            return {...state, currentRoom: localStorage.getItem('Room')}
         case 'Room Three':
-            return {...state, currentRoom: action.type}
+            return {...state, currentRoom: localStorage.getItem('Room')}
         case 'Show Modal':
             return {...state, showModal: true}
         case 'Hide Modal':
@@ -31,16 +32,28 @@ const PuzzleReducer = (state, action) => {
     }
 }
 const initialState = {
+    passedRoom: ['Room One'],
+    clues: localStorage.getItem('Clues'),
+    currentClues: '',
     currentRoom: localStorage.getItem('Room'),
-    clues: localStorage.getItem('Clues')
+    showModal: false,
+    guessed: () => {},
+    hideModal: () => {},
+    messageClue: '',
+    changeRoom: () => {}
 }
+
+// currentRoom: localStorage.getItem('Room'),
+// clues: localStorage.getItem('Clues'),
+
 export const PuzzleContextProvider = (props) => {
     const [puzzleState, dispatchPuzzleFN] = useReducer(PuzzleReducer, initialState);
-    let {passedRoom, clues, currentRoom, showModal, currentClues} = puzzleState;
+    let {passedRoom, clues, currentClues, currentRoom, showModal} = puzzleState;
     const clicks = (clicked) => {
         if(clicked === 'Room One' || clicked === 'Room Two' || clicked === 'Room Three'){
             localStorage.setItem('Room', clicked);
-            currentRoom = localStorage.getItem('Room');
+            const curRoomLS = localStorage.getItem('Room');
+            dispatchPuzzleFN({type: curRoomLS})
         } else {
             let clueArray = [];
             let parsedClueLS = [];
@@ -49,7 +62,16 @@ export const PuzzleContextProvider = (props) => {
             }
             if(parsedClueLS.indexOf(clicked) === -1 && clicked !== 'Cabinet'){
                 clueArray = [...parsedClueLS, clicked];
-                localStorage.setItem('Clues', JSON.stringify(clueArray));
+                if(clicked.includes('Shield')){
+                    dispatchPuzzleFN({type: 'Show Modal'});
+                    dispatchPuzzleFN({type: 'Current Clues', clue: clicked});
+                } else {
+                    localStorage.setItem('Clues', JSON.stringify(clueArray));
+                    dispatchPuzzleFN({type: 'Show Modal'});
+                    dispatchPuzzleFN({type: 'Current Clues', clue: clicked});
+                }
+                
+            } else {
                 dispatchPuzzleFN({type: 'Show Modal'});
                 dispatchPuzzleFN({type: 'Current Clues', clue: clicked});
             }
@@ -68,6 +90,10 @@ export const PuzzleContextProvider = (props) => {
         dispatchPuzzleFN({type: 'Hide Modal'});
         console.log('Hide Modal')
     }
+    const changeRoom = (val) => {
+        localStorage.setItem('Room', val);
+        dispatchPuzzleFN({type: val})
+    }
     return <PuzzleContext.Provider value={{
         currentRoom: currentRoom,
         clues: clues,
@@ -75,7 +101,8 @@ export const PuzzleContextProvider = (props) => {
         guessed: clicks,
         showModal: showModal,
         hideModal: hideModalFN,
-        currentClues: currentClues
+        currentClues: currentClues,
+        changeRoom: changeRoom
     }}>{props.children}</PuzzleContext.Provider>
 }
 export default PuzzleContext;

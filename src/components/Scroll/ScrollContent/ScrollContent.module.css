@@ -8,3 +8,10 @@
     line-height: 1rem;
     cursor: pointer;
 }
+.image-container {
+    max-width: 570px;
+    margin: auto;
+}
+.image-container img {
+    width: 100%;
+}

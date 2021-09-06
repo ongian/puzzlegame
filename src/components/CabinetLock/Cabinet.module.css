@@ -1,0 +1,18 @@
+.cabinetLock {
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin: 50px 0 75px;
+}
+.submit {
+    display: block;
+    width: 125px;
+    font-size: 21px;
+    margin: 15px auto;
+    border: none;
+    background: #a25500;
+    padding: 10px 5px;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: inset 0px 0px 10px #614524;
+}

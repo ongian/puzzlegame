@@ -1,0 +1,16 @@
+.room {
+    position: relative;
+}
+.fa-arrow-alt-circle-left {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    z-index: 2;
+    font-size: 45px;
+    color: rgb(0 0 0 / 75%);
+    cursor: pointer;
+}
+.fa-arrow-alt-circle-left:hover {
+    color: #000;
+    transition: all .5s ease-out;
+}

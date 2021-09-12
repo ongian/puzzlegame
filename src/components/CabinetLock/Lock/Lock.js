@@ -15,8 +15,10 @@ const Lock = (props) => {
         }
     }
     const Decrement = () => {
-        if(code <= 0 || code === props.placeholder){
+        if(code <= 0){
             setCode(9)
+        } else if(code === props.placeholder){
+            setCode(0)
         } else {
             setCode(code - 1)
         }

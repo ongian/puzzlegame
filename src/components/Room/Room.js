@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import RoomOne from './RoomOne/RoomOne';
 import RoomTwo from './RoomTwo/RoomTwo';
+import RoomThree from './RoomThree/RoomThree';
 import PuzzleContext from '../../PuzzleContext/PuzzleContext';
 import Scroll from '../Scroll/Scroll';
 const Room = (props) => {
@@ -9,6 +10,7 @@ const Room = (props) => {
         {puzzleCtx.currentRoom === null || puzzleCtx.currentRoom === undefined ? <RoomOne/> : null}
         {puzzleCtx.currentRoom === 'Room One' ||  puzzleCtx.currentRoom === '' ? <RoomOne /> : null}
         {puzzleCtx.currentRoom === 'Room Two' && <RoomTwo />}
+        {puzzleCtx.currentRoom === 'Room Three' && <RoomThree />}
         {puzzleCtx.showModal === true && <Scroll />}
     </React.Fragment>;
 }

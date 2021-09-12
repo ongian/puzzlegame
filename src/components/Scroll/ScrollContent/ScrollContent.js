@@ -4,7 +4,7 @@ import PuzzleContext from '../../../PuzzleContext/PuzzleContext';
 import BraileChart from '../../../image/BraileChart.gif';
 import Shield from './Shield/Shield';
 import CabinetLock from '../../CabinetLock/CabinetLock';
-
+import SecretDoor from './SecretDoor/SecretDoor';
 const reducerFN = (state, action) => {
     const findShield = (clue) => {
         if (clue.includes('Shield')){
@@ -14,6 +14,8 @@ const reducerFN = (state, action) => {
     switch (action.type) {
         case 'Cabinet':
             return {...state, name: 'Cabinet', message: 'The is Cabinet is locked, the code must be somewhere'}
+        case 'Secret Door':
+            return {...state, name: 'Secret Door', message: 'We need a key, it must be somewhere'}
         case 'Case':
             return {...state, name: 'Case', message: 'Seem\'s like a code, maybe we could use it later', clueImage: BraileChart }
         case (findShield(action.type)):
@@ -53,10 +55,10 @@ const ScrollContent = (props) => {
     return (<React.Fragment>
         <span onClick={pzlCtx.hideModal} className={style.close}>x</span>
         <h2>{state.name}</h2>
-        {state.message && <p>{state.message}</p>}
         {state.clueImage && <div className={style['image-container']}><img src={state.clueImage} alt={pzlCtx.currentClues} /></div>}
         {pzlCtx.currentClues.includes('Shield') && <Shield number={shieldNumArr[shieldNum - 1].number} color={shieldNumArr[shieldNum - 1].color} />}
         {pzlCtx.currentClues === 'Cabinet' && <CabinetLock />}
+        {pzlCtx.currentClues === 'Secret Door' && <SecretDoor message={state.message} />}
     </React.Fragment>);
 }
  
